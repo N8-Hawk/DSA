@@ -1,0 +1,173 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node *link; 
+};
+
+void create(node **head, int item){
+    node *ptr = new node();
+    node *temp = *head;
+    ptr->data = item;
+    ptr->link = NULL;
+
+    if(*head == NULL){
+        *head = ptr;
+        temp = ptr;
+    }
+    else {
+        while(temp->link != NULL){
+            temp = temp->link;
+        }
+        temp->link = ptr;
+    }
+}
+int fst_insert(node **head, int item, int n){
+    node *ptr = new node;
+    ptr->data = item;
+    ptr->link = *head;
+    *head = ptr;
+    return n+1;
+}
+
+int before_insert(node **head, int data,int search, int n){
+    node *ptr = new node();
+    ptr->data = data;
+    ptr->link = NULL;
+    node *temp = *head;
+    node *prv = *head;
+    if(temp->data == search){
+        return fst_insert(head, data, n);
+    }
+    else {
+        while(temp->link != NULL){
+            temp = temp->link;
+            if(temp->data == search){
+                 ptr->link = prv->link;
+                 prv->link = ptr;
+            }
+            else {
+                prv = prv->link;
+            }
+        }
+    }
+    return n+1;
+}
+
+int last_insert(node **head, int item, int n){
+    create(head, item);
+    return n+1;
+}
+
+int after_insert(node **head, int data, int search, int n){
+    node *temp = *head;
+    node *ptr = new node();
+    ptr->data = data;
+    while(temp != NULL){
+        if(temp->data == search){
+            if(temp->link == NULL){
+                temp->link = ptr;
+                return n+1;
+            }
+            else{
+            ptr->link = temp->link;
+            temp->link = ptr;
+            return n+1;
+            }
+        }
+        else temp = temp->link;
+    }
+    cout << "data not found" << endl;
+    return n;
+}
+
+int first_del(node **head, int data, int n){
+    node *temp = *head;
+    *head = temp->link;
+    delete temp;
+    return n-1;
+}
+
+int last_del(node **head, int data, int n){
+    node *temp = *head;
+    while(temp != NULL){
+        if(temp->link == NULL){
+            temp = temp->link;
+            delete temp;
+        }
+    }
+    return n-1;
+}
+
+int delet(node **head, int search, int n){
+    node *ptr = new node();
+    node *temp = *head;
+    node *prv = *head;
+
+    if(temp->data == search) return first_del(head, search, n);
+    else{
+        while(temp != NULL){
+            temp = temp->link;
+            if(temp->data == search){
+                if(temp->link == NULL){
+                    if(temp->link == NULL){
+                        temp = temp->link;
+                        delete temp;
+                    }
+                }
+                else {
+                    prv->link = temp->link;
+                    delete temp;
+                }
+                return n-1;
+            }
+            else {
+                prv = prv -> link;
+            }
+        }
+    }
+    cout << "data not found" << endl;
+    return n;
+}
+
+void display(node **head){
+    node *temp = *head;
+    while(temp != NULL){
+        cout << temp->data << ' ';
+        temp = temp->link;
+    }
+    cout << endl;
+}
+
+
+int main()
+{
+    int n, x, data, search; cin >> n;
+    node *head = NULL;
+    for(int i = 0 ; i < n; i++) {
+        cin >> x;
+        create(&head, x);
+    }
+    display(&head);
+
+    cout << "enter value to insert before :" << endl;
+    cin >> data;
+    cout << "enter the value before which u would like to insert : " << endl;
+    cin >> search;
+    n = before_insert(&head, data , search, n);
+    display(&head);
+
+    cout << "enter value to insert after:" << endl ;
+    cin >> data;
+    cout << "enter the value after which u would like to insert : " << endl;
+    cin >> search;
+    n = after_insert(&head, data, search, n);
+    display(&head);
+
+    cout << "Enter the data you want to delete : ";
+    cin >> data;
+    n = delet(&head, data, n);
+    display(&head);
+}
