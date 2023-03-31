@@ -45,7 +45,7 @@ int before_insert(node **head, int data,int search, int n){
         while(temp->link != NULL){
             temp = temp->link;
             if(temp->data == search){
-                 ptr->link = prv->link;
+                 ptr->link = temp->link;
                  prv->link = ptr;
             }
             else {
