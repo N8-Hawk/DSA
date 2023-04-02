@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node *link;
+};
+
+void create(node **head, int item){
+    node *ptr = new node();
+    node *temp = *head;
+    ptr->data = item;
+    ptr->link = NULL;
+
+    if(*head == NULL){
+        *head = ptr;
+        temp = ptr;
+    }
+    else {
+        while(temp->link != NULL){
+            temp = temp->link;
+        }
+        temp->link = ptr;
+    }
+}
+
+void display(node **head){
+    node *temp = *head;
+    while(temp != NULL){
+        cout << temp->data << ' ';
+        temp = temp->link;
+    }
+    cout << endl;
+}
+
+void selection_sort(node **head, int n)
+{
+    node *temp = *head;
+    node *temp1 = (*head)->link;
+    int t, k;
+
+    for(int i = 0; i < n; i++){
+        temp1 = temp->link;
+        while(temp1 != NULL){
+            if(temp1->data < temp->data){
+                t = temp1->data;
+                temp1->data = temp->data;
+                temp->data = t;
+               // cout << temp->data << ' ' << temp1->data << endl;
+            }
+            temp1 = temp1->link;
+        }
+        temp = temp->link;
+    }
+}
+
+
+int main()
+{
+    int n, x; cin >> n;
+    int a[n];
+    node *head = NULL;
+    for(int i = 0; i < n; i++) {
+        cin >> x;
+        create(&head, x);
+    }
+    display(&head);
+    selection_sort(&head, n);
+    display(&head);
+
+
+}
