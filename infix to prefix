@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char stk[100], post[100];
+int i = -1, j = 0;
+
+void push(char c)
+{
+    i++;
+    stk[i] = c;
+}
+
+void pop() {i--;}
+
+int prec(char c)
+{
+    if(c == '^') return 3;
+    else if(c == '*' || c == '/') return 2;
+    else if(c == '+' || c == '-') return 1;
+    else return 0;
+}
+
+void infix_to_prefix(char c)
+{
+    if(c == '('){
+        push(c);
+        //i++;
+    }
+
+    else if(c == ')'){
+        while(stk[i] != '('){
+            post[j] = stk[i];
+            j++;
+            pop();
+        }
+        pop();
+    }
+
+    else if(c == '^' || c == '+' || c == '-' || c == '*' || c == '/' ){
+        while(prec(c) <= prec(stk[i]))
+        {
+            post[j] = stk[i];
+            pop();
+            j++;
+        }
+        push(c);
+    }
+
+    else if((c >= 'a' || c <= 'z') || (c >= 'A' || c <= 'Z') )
+    {
+        post[j] = c;
+        j++;
+    }
+}
+
+int main()
+{
+    string infix;
+    cin >> infix;
+    int l = infix.length();
+    for(int k = 0; k < l; k++)
+    {
+        infix_to_prefix(infix[k]);
+    }
+    for(int k = 0; k < l-2 ; k++) cout << post[k];
+}
