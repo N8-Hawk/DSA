@@ -1,0 +1,157 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Definition of a Binary Tree Node
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+// Function to insert a node into the binary search tree
+void insertNode(Node* &root, int val) {
+    if (root == NULL) {
+        root = new Node(val);
+        return;
+    }
+    else if (val < root->data) {
+        Node *temp = root;
+        Node *ptr = new Node(val);
+        while(val < temp->data){
+            if(temp->left == NULL) {
+                temp->left = ptr;
+                break;
+            }
+            else temp = temp->left;
+        }
+        while(val > temp->data){
+            if(temp->right == NULL) {
+                temp->right = ptr;
+                break;
+            }
+            else temp = temp->right;
+        }
+        //insertNode(root->left, val);
+    } 
+    else if (val > root->data) {
+        Node *temp = root;
+        Node *ptr = new Node(val);
+        while(val < temp->data){
+            if(temp->left == NULL) {
+                temp->left = ptr;
+                break;
+            }
+            else temp = temp->left;
+        }
+        while(val > temp->data){
+            if(temp->right == NULL) {
+                temp->right = ptr;
+                break;
+            }
+            else temp = temp->right;
+        }
+        //inse
+    }
+    // else {
+    //     insertNode(root->right, val);
+    // }
+}
+
+void search(Node* root,int ele)
+{
+    
+    if (root==NULL)
+    {
+        cout<<"The tree is empty\n";
+        return;
+    }
+
+    Node* pr = root;
+    while (pr!=NULL)
+    {
+        if (pr->data==ele)
+        {
+            cout<<"The node exists\n";
+            return;
+        }
+        else if (ele<pr->data)
+        {
+            pr=pr->left;
+        }
+
+        else{
+            pr=pr->right;
+        }
+    }
+
+    cout<<"No such node found\n";
+    return;
+    
+}
+
+
+
+// Function to perform Inorder traversal of a binary search tree
+void inorderTraversal(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+    inorderTraversal(root->left);
+    cout << root->data << " ";
+    inorderTraversal(root->right);
+}
+
+void preoederTraversal(Node* root)
+{
+    if (root==NULL)
+    {
+        return;
+    }
+
+    cout<<root->data<<" ";
+    preoederTraversal(root->left);
+    preoederTraversal(root->right);
+}
+
+void postorderTraversal (Node* root)
+{
+    if (root==NULL)
+    {
+        return;
+    }
+
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    cout<<root->data<<" ";
+}
+
+int main() {
+    // Creating an empty binary search tree
+    Node* root = NULL;
+
+    // Asking the user to enter the number of nodes in the tree
+    int numNodes,x;
+    cout << "Enter the number of nodes in the binary search tree: ";
+    cin >> numNodes;
+
+    // Asking the user to enter the values of each node
+    cout << "Enter the values of the " << numNodes << " nodes: ";
+    //vector<int> values(numNodes);
+    for (int i = 0; i < numNodes; i++) {
+        cin >> x;
+        insertNode(root, x);
+    }
+
+    // Performing inorder traversal of the binary search tree
+    cout << "Inorder Traversal: ";
+    inorderTraversal(root);
+    search(root,40);
+    return 0;
+}
