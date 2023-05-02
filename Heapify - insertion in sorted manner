@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void insertHeap(int a[], int d, int n){
+
+    int ptr = n, par = (n-1)/2;
+    a[ptr] = d;
+
+    while(ptr > 0){
+        if(a[ptr] > a[par])
+            swap(a[ptr], a[par]);
+        
+        ptr = par;
+        par = (par-1) / 2;
+    }
+
+}
+
+int main()
+{
+    int n,x; cin >> n;
+    int a[n];
+    for(int i = 0; i < n; i++){
+        cin >> x;
+        insertHeap(a, x, i);
+    }
+
+    for(int i = 0 ; i < n; i++) cout << a[i] << ' ';
+}
