@@ -238,7 +238,7 @@ public:
 						cout << endl;
 						cout << "\t\t\t\t\t\t\t  Cashier :  FARHAN"<<endl;
 						cout << endl;
-                        cout<<"\t\t\t\t\t\t\t\t    YOUR TOTAL BILL IS Rs."<<total<<endl;
+                        cout<<"\t\t\t\t\t\t\t\t    YOUR TOTAL BILL IS Tk."<<total<<endl;
                         write<<"\t\t\t\t\t\t\t ";
                         write<<"\t\t\t\t\t\t\tTOTAL BILL IS : "<<total;
 						cout << "\n\t\t\t\t\t\t\t ================================================"<<endl;
