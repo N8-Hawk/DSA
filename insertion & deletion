@@ -90,13 +90,14 @@ int first_del(node **head, int data, int n){
     return n-1;
 }
 
-int last_del(node **head, int data, int n){
+int last_del(node **head, int n){
     node *temp = *head;
     while(temp != NULL){
-        if(temp->link == NULL){
-            temp = temp->link;
-            delete temp;
+        if(temp->link->link == NULL) {
+            delete temp->link->link;
+            temp->link = NULL;
         }
+        temp = temp->link;
     }
     return n-1;
 }
@@ -112,10 +113,9 @@ int delet(node **head, int search, int n){
             temp = temp->link;
             if(temp->data == search){
                 if(temp->link == NULL){
-                    if(temp->link == NULL){
-                        temp = temp->link;
-                        delete temp;
-                    }
+                    prv->link = NULL;
+                    delete temp;
+                }
                 }
                 else {
                     prv->link = temp->link;
