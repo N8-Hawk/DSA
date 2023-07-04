@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node *link;
+};
+
+void insert(node **head, int val)
+{
+    node *temp = new node();
+    temp->data = val;
+    temp->link = NULL;
+
+    if(*head == NULL)
+    {
+        *head = temp;
+        return;
+    }
+    node *last_node = *head;
+    while(last_node->link != NULL)
+    {
+        last_node = last_node->link;
+    }
+    last_node->link = temp;
+}
+
+void deletebefore(node **head, int val)
+{
+    node *temp = *head;
+    node *prv = temp;
+    
+    if(temp->data == val)
+    {
+        cout << "No element before " << val << endl;
+        return;
+    }
+    if(temp->link->data == val)
+    {
+        *head = temp->link;
+        delete temp;
+        return;
+    }
+    else{
+    while(temp->link->data != val)
+    {
+        prv = temp;
+        temp = temp->link;
+    }
+    prv->link = temp->link;
+    delete temp;
+    }
+}
+
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL)
+    {
+        cout << temp->data << ' ';
+        temp = temp->link;
+    }
+}
+
+int main()
+{
+    int n, x; cin >> n;
+    node *head = NULL;
+    for(int i = 0; i < n ; i++)
+    {
+        cin >> x;
+        insert(&head, x);
+    }
+cin >> x;
+    deletebefore(&head, x);
+    display(head);
+}
